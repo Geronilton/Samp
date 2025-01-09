@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assinantes</title>
+</head>
+<body>
+    <h1>Lista de Assinantes</h1>
+    {% for assinante in assinantes %}
+    <p> {{assinante.nome}} 
+    {{assinante.email}}
+    {{assinante.telefone}}
+    <a href="{% url 'atualizar_assinante' assinante.id %}">EDITAR</a>
+    <a href="{% url 'deletar_assinante' assinante.id %}">DELETAR</a>
+    <a href="{% url 'cadastra_mensalidade' assinante.id %}">Definir Mensalidade</a>
+    </p>
+    {% empty %}
+    <p>Nenhum Assinante Cadastrado </p>
+    {% endfor %}
+
+
+</body>
+</html>

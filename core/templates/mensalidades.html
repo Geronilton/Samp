@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensalidades</title>
+</head>
+<body>
+    <h1>Mensalidades</h1>
+
+    {% for mensalidade in mensalidades %}
+    <p>
+    {{mensalidade.assinantes.nome}}
+    {{mensalidade.valor}} 
+    {{mensalidade.vencimento}}
+    {{mensalidade.data_pagamento}}
+    {{mensalidade.status}}
+    {{mensalidade.data_criado}}
+    <a href="{% url 'atualizar_mensalidade' mensalidade.id %}">Atualizar Mensalidade</a>
+    <a href="{% url 'deletar_mensalidade' mensalidade.id %}">Deletar Mensalidade</a>
+    </p>
+    {% empty %}
+    <p>Nenhuma Mensalidade Cadastrada </p>
+    {% endfor %}
+</body>
+</html>
