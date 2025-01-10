@@ -1,0 +1,91 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.conteiner {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+
+.content {
+    width: 80%; 
+    max-width: 1200px; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-left: 8%;
+}
+.logout{
+    text-align: end;
+    margin-right: 50px;
+}
+
+.logout a{
+    text-decoration: none;
+    color: red;
+}
+
+
+.conteudo_funcoes {
+    margin: 5%;
+    gap: 16px; 
+}
+
+.funcionalidades {
+    text-align: center;
+    margin: 0 0 10px 0;
+    width: 200px;  
+    padding: 20px;
+    border: 1px solid #ddd; 
+    border-radius: 10px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  
+}
+
+
+.funcionalidades:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
+
+.funcionalidades a {
+    text-decoration: none;
+    color: #007bff;  
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: color 0.3s ease;  
+}
+
+
+.funcionalidades a:hover {
+    color: #0056b3;  
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .content {
+        width: 90%;  /* Reduz a largura do conteúdo em telas menores */
+    }
+
+    .conteudo_funcoes {
+        flex-direction: column;  /* Exibe as funcionalidades em uma coluna */
+        align-items: center;  /* Centraliza os itens */
+    }
+
+    .funcionalidades {
+        width: 80%;  /* Ocupa 80% da largura em telas pequenas */
+        margin-bottom: 15px;  /* Adiciona um espaçamento entre os itens */
+    }
+}

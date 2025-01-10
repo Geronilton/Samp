@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Assinantes</title>
-</head>
-<body>
-    <h1>Cadastro de Assinantes</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{form}}
-        <p><input type="submit" value="Registrar"></p>
-    </form>
-</body>
-</html>
+{% extends "base_form.html" %}
+
+{% block title %}
+    Cadastro de Assinantes
+{% endblock %}
+
+{% block content %}
+    <div class="form_assinantes">
+        <div class="cadastro_form">
+            <h1>Cadastro de Assinantes</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{form}}
+                <p><input type="submit" value="Registrar"></p>
+            </form>
+        </div>
+    </div>
+{%endblock%}

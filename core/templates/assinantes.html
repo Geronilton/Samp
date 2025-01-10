@@ -1,24 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assinantes</title>
-</head>
-<body>
-    <h1>Lista de Assinantes</h1>
-    {% for assinante in assinantes %}
-    <p> {{assinante.nome}} 
-    {{assinante.email}}
-    {{assinante.telefone}}
-    <a href="{% url 'atualizar_assinante' assinante.id %}">EDITAR</a>
-    <a href="{% url 'deletar_assinante' assinante.id %}">DELETAR</a>
-    <a href="{% url 'cadastra_mensalidade' assinante.id %}">Definir Mensalidade</a>
-    </p>
-    {% empty %}
-    <p>Nenhum Assinante Cadastrado </p>
-    {% endfor %}
+{% extends "base_tabela.html" %}
 
 
-</body>
-</html>
+
+{% block content %}
+    <div class="conteiner">
+        <div class="tabela">
+            <h2>Lista de Assinantes</h2>
+            {% if assinantes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Editar</th>
+                        <th>Deletar</th>
+                        <th>Definir Mensalidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assinante in assinantes %}
+                    <tr>
+                        <td>{{ assinante.nome }}</td>
+                        <td>{{ assinante.email }}</td>
+                        <td>{{ assinante.telefone }}</td>
+                        <td><a href="{% url 'atualizar_assinante' assinante.id %}" class="editar">EDITAR</a></td>
+                        <td><a href="{% url 'deletar_assinante' assinante.id %}" class="deletar">DELETAR</a></td>
+                        <td><a href="{% url 'cadastra_mensalidade' assinante.id %}" class="definir_mensalidade">Definir Mensalidade</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="empty">Nenhum Assinante Cadastrado</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
