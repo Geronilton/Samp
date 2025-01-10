@@ -26,9 +26,20 @@ class Assinantes(models.Model):
     empresa = models.ForeignKey(Empresas, on_delete=models.PROTECT)
 
 class Mensalidades(models.Model):
+    STATUS_CHOICES = [
+        ('pago', 'Pago'),
+        ('pendente', 'Pendente'),
+        ('atrasado', 'Atrasado'),
+    ]
+
     valor = models.DecimalField('Valor da Mensalidade', max_digits=5, decimal_places=2)
     vencimento = models.DateField('Vencimento')
-    status = models.BooleanField()
+    status = models.CharField(
+        'Status',
+        max_length=10,
+        choices=STATUS_CHOICES,  # Define as opções disponíveis no status
+        default='pendente',  # Valor default para o status
+    )
     data_pagamento = models.DateField(blank=True, null=True)
     data_criado = models.DateField(auto_now_add=True)
-    assinantes = models.ManyToManyField(Assinantes)
+    assinantes = models.ForeignKey(Assinantes, on_delete=models.CASCADE)
