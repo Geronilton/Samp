@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
 from .models import Empresas, Assinantes, Mensalidades
 from .forms import EmpresasForm, EmpresaUserForm,AssinantesForm,MensalidadesForm
 
 # Create your views here.
-
+@login_required
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def deletar_mensalidade(request, id):
     mensalidade = Mensalidades.objects.get( pk=id)
     mensalidade.delete()
     return redirect('mensalidades')
 
+@login_required
 def atualizar_mensalidade(request, id):
     mensalidade = Mensalidades.objects.get(pk=id)
     form = MensalidadesForm(request.POST or None, instance=mensalidade)
@@ -24,6 +27,7 @@ def atualizar_mensalidade(request, id):
     }
     return render(request, 'cadastro_mensalidade.html',contexto)
 
+@login_required
 def mensalidades(request):
     mensalidades = Mensalidades.objects.all()
     contexto = {
@@ -31,25 +35,27 @@ def mensalidades(request):
     }
     return render(request, 'mensalidades.html', contexto)
 
+@login_required
 def cadastra_mensalidade(request, id):
     assinante = Assinantes.objects.get(pk=id)
     form = MensalidadesForm(request.POST or None)
     if form.is_valid():
         mensalidade = form.save(commit=False)
-        mensalidade.assinante = assinante
+        mensalidade.assinantes = assinante
         mensalidade.save()
-        return redirect('assinantes')
+        return redirect('mensalidades')
     contexto = {
         'form': form
     }
     return render(request, 'cadastro_mensalidade.html',contexto)
 
-
+@login_required
 def deletar_assinante(request, id):
     assinante = Assinantes.objects.get(pk=id)
     assinante.delete()
     return redirect('assinantes')
 
+@login_required
 def atualizar_assinante(request, id):
     empresa = request.user.empresa
     assinante = Assinantes.objects.get(pk=id)
@@ -65,6 +71,7 @@ def atualizar_assinante(request, id):
 
     return render(request, 'assinantes_cadastro.html', context)
 
+@login_required
 def assinantes(request):
     assinantes = Assinantes.objects.all()
     contexto = {
@@ -72,6 +79,7 @@ def assinantes(request):
     }
     return render(request, 'assinantes.html', contexto)
 
+@login_required
 def cadastro_assinantes(request):
     empresa = request.user.empresa
     form = AssinantesForm(request.POST or None)
@@ -100,6 +108,10 @@ def login_view(request):
             }
             return render(request, 'login.html', contexto)
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 def empresa_cadastro(request):
     form = EmpresasForm(request.POST or None)
