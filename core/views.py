@@ -73,7 +73,8 @@ def atualizar_assinante(request, id):
 
 @login_required
 def assinantes(request):
-    assinantes = Assinantes.objects.all()
+    empresa = request.user.empresa 
+    assinantes = Assinantes.objects.filter(empresa=empresa)
     contexto = {
         'assinantes': assinantes
     }
