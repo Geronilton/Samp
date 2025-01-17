@@ -29,7 +29,8 @@ def atualizar_mensalidade(request, id):
 
 @login_required
 def mensalidades(request):
-    mensalidades = Mensalidades.objects.all()
+    empresa = request.user.empresa 
+    mensalidades = Mensalidades.objects.filter(assinantes__empresa=empresa)
     contexto = {
         'mensalidades':mensalidades
     }
