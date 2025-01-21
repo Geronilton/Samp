@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="conteiner">
+       
         <div class="tabela">
             <h2>Mensalidades</h2>
             {% if mensalidades %}
@@ -29,7 +29,13 @@
                         <td>R$ {{ mensalidade.valor }}</td>
                         <td>{{ mensalidade.vencimento }}</td>
                         <td>{{ mensalidade.status }}</td>
-                        <td>{{ mensalidade.data_pagamento }}</td>
+                        <td>{% if mensalidade.data_pagamento %}
+                            {{ mensalidade.data_pagamento }}
+                        {% else %}
+                            <span class="sem-pagamento">Aguardando pagamento</span>
+                        {% endif %}
+                        </td>
+
                         <td>{{ mensalidade.data_criado }}</td>
                         <td>
                             <a href="{% url 'atualizar_mensalidade' mensalidade.id %}" class="editar">Atualizar</a>
@@ -45,5 +51,4 @@
             <p class="empty">Nenhuma Mensalidade Cadastrada</p>
             {% endif %}
         </div>
-    </div>
 {% endblock %}

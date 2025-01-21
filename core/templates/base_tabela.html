@@ -8,7 +8,27 @@
     <title>{% block title %}Lista de Assinantes{% endblock %}</title>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="conteiner">
+        <div class="conteudo_funcoes">           
+            <div class="funcionalidades">
+                <p>
+                    <a href="{% url 'cadastro_assinantes' %}">Cadastrar um Assinante</a>
+                </p>
+            </div>
+            <div class="funcionalidades">
+                <p>
+                    <a href="{% url 'assinantes' %}">Visualizar Assinantes</a>
+                </p>
+            </div>
+            <div class="funcionalidades">
+                <p>
+                    <a href="{% url 'mensalidades' %}">Visualizar Mensalidades</a>
+                </p>
+            </div>
+ 
+        </div>
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
