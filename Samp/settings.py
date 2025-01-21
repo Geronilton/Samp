@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#deploy
+import os
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+DEBUG = False
+
+ALLOWED_HOSTS = ['geronilton.pythonanywhere.com'
+
 
 # Application definition
 
@@ -132,3 +140,5 @@ AUTH_USER_MODEL = 'core.EmpresaUser'
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'home'
+
+
