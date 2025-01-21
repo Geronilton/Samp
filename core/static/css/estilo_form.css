@@ -17,6 +17,23 @@
     background-color: #f9f9f9;
 }
 
+a {
+    color: #007bff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 1rem; 
+}
+
+a:hover {
+    color: #0056b3; 
+    text-decoration: underline;
+    transition: color 0.3s ease; 
+}
+
+a:active {
+    color: #003f7f; 
+}
+
 /* Estilo geral para o formulário */
 form {
     max-width: 400px;
