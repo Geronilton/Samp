@@ -2,8 +2,8 @@ from django.urls import path
 from .views import logout_view,deletar_mensalidade,atualizar_mensalidade,mensalidades,cadastra_mensalidade,deletar_assinante, atualizar_assinante,assinantes,cadastro_assinantes, empresa_cadastro, empresas, empresa_user, home, login_view
 
 urlpatterns = [
-    path('',empresa_cadastro, name='empresa_cadastro'),
-    path('home/',home, name='home'),
+    path('empresa_cadastro',empresa_cadastro, name='empresa_cadastro'),
+    path('',home, name='home'),
     path('login/',login_view, name='login'),
     path('logout/',logout_view, name='logout_view'),
     path('empresas/',empresas, name='empresas'),
