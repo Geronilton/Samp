@@ -1,19 +1,26 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Empresas, EmpresaUser, Assinantes, Mensalidades
+from .models import Empresas, Usuario, Assinantes, Mensalidades,Servico
 
-class EmpresaUserForm(UserCreationForm):
+class UserForm(UserCreationForm):
     email = forms.EmailField(max_length=100, help_text='Required. Inform a valid email address.')
 
     class Meta:
-        model = EmpresaUser
-        fields = ['username', 'email', 'password1', 'password2']
-
+        model = Usuario
+        fields = ['username','email', 'password1', 'password2']
 
 class EmpresasForm(forms.ModelForm):
     class Meta:
         model = Empresas
-        fields = ['nome', 'email']
+        fields = ['nome', 'email','categoria', 'endereco','instagram','whatsapp']
+        widgets = {
+            'nome': forms.TextInput(attrs={'placeholder':' Nome da empresa'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+            'categoria': forms.TextInput(attrs={'placeholder': 'Categoria. ex: esporte, lazer,transporte... '}),
+            'endereco': forms.TextInput(attrs={'placeholder': 'Endereço. ex: Rua da Escola, 10, Goianinha'}),
+            'instagram': forms.URLInput(attrs={'placeholder': 'Opcional:Link do Instagram'}),
+            'whatsapp': forms.URLInput(attrs={'placeholder': 'Opcional:Link do WhatsApp'}),
+        }
 
 
 class AssinantesForm(forms.ModelForm):
@@ -44,3 +51,25 @@ class MensalidadesForm(forms.ModelForm):
             'data_pagamento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
 
+class ServicoForm(forms.ModelForm):
+    class Meta:
+        model = Servico
+        fields = ['nome', 'descricao', 'valor']
+
+# -------------------------------------------------
+
+class PesquisaEmpresaForm(forms.Form):
+    busca = forms.CharField(label='Pesquisar', required=False,
+            widget=forms.TextInput(attrs={
+            'placeholder': 'Buscar por nome, categoria ou endereço...',
+            'class': 'input-busca' 
+        }))
+ 
+ 
+class PesquisaForm(forms.Form):
+    busca = forms.CharField(label='Pesquisar', required=False,
+            widget=forms.TextInput(attrs={
+            'placeholder': 'Buscar...',
+            'class': 'input-busca' 
+        }))
+ 
