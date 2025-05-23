@@ -1,17 +1,50 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-from .models import Empresas, Assinantes, Mensalidades
-from .forms import EmpresasForm, EmpresaUserForm,AssinantesForm,MensalidadesForm
+from .models import Empresas, Assinantes, Mensalidades, Servico, Assinatura,Usuario
+from .forms import EmpresasForm,AssinantesForm,MensalidadesForm,UserForm, ServicoForm, PesquisaEmpresaForm,PesquisaForm
+from .utils import criar_mensalidade_para_assinatura
+from django.db.models import Q
 
 # Create your views here.
 @login_required
-def home(request):
-    empresa = request.user.empresa 
-    contexto ={
+def dashboard(request):
+    empresa = request.user.empresa
+    context = {
         'empresa':empresa
+    }   
+    return render(request, 'dashboard.html', context)
+
+def editar_infoEmpresa(request):
+    empresa = request.user.empresa  
+    form = EmpresasForm(request.POST or None, instance=empresa)
+    if form.is_valid():
+        form.save()
+        return redirect('dashboard')  
+    context = {
+        'form': form,
+        'empresa': empresa
     }
-    return render(request, 'home.html', contexto)
+
+    return render(request, 'form_empresa.html', context)
+
+def home(request):
+    form = PesquisaEmpresaForm(request.GET or None)
+    empresas = Empresas.objects.all()
+    if form.is_valid():
+        termo = form.cleaned_data.get('busca')
+        if termo:
+            empresas = empresas.filter(
+                Q(nome__icontains=termo) |
+                Q(categoria__icontains=termo) |
+                Q(endereco__icontains=termo)
+            )
+    context = {
+        'empresas': empresas,
+        'form': form,
+    }
+    return render(request, 'empresas.html', context)
 
 @login_required
 def deletar_mensalidade(request, id):
@@ -34,9 +67,27 @@ def atualizar_mensalidade(request, id):
 @login_required
 def mensalidades(request):
     empresa = request.user.empresa 
-    mensalidades = Mensalidades.objects.filter(assinantes__empresa=empresa)
+    form = PesquisaForm(request.GET or None)
+    if not empresa:
+        return render(request, 'mensalidades.html', {
+            'mensalidades': [],
+            'erro': 'Usuário sem empresa vinculada.',
+            'form': form
+        })
+    mensalidades = Mensalidades.objects.filter(
+        assinatura__servico__empresa=empresa
+    ).select_related('assinatura', 'assinatura__servico', 'assinatura__assinante')
+    if form.is_valid():
+        termo = form.cleaned_data.get('busca')
+        if termo:
+            mensalidades = mensalidades.filter(
+                Q(assinatura__assinante__nome__icontains=termo) |
+                Q(assinatura__servico__nome__icontains=termo) |
+                Q(status__icontains=termo)
+            )
     contexto = {
-        'mensalidades':mensalidades
+        'mensalidades': mensalidades,
+        'form': form
     }
     return render(request, 'mensalidades.html', contexto)
 
@@ -78,12 +129,19 @@ def atualizar_assinante(request, id):
 
 @login_required
 def assinantes(request):
-    empresa = request.user.empresa 
+    empresa = request.user.empresa
+    form = PesquisaForm(request.GET or None)
     assinantes = Assinantes.objects.filter(empresa=empresa)
+    if form.is_valid():
+        termo = form.cleaned_data.get('busca')
+        if termo:
+            assinantes = assinantes.filter(nome__icontains=termo)
     contexto = {
-        'assinantes': assinantes
+        'assinantes': assinantes,
+        'form': form
     }
     return render(request, 'assinantes.html', contexto)
+
 
 @login_required
 def cadastro_assinantes(request):
@@ -132,24 +190,143 @@ def empresa_cadastro(request):
 def empresa_user(request, id):
     empresa = get_object_or_404(Empresas, pk=id)
     if request.method == 'POST':
-        form = EmpresaUserForm(request.POST)
+        form = UserForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.empresa = empresa
+            user.tipo_usuario = 'admin'
             user.save()
             return redirect('login') 
     else:
-        form = EmpresaUserForm()
+        form = UserForm()
+        form.instance.tipo_usuario = 'admin'
     context = {
         'form': form,
         'empresa': empresa,
+        'tipo_usuario': 'admin',
     }
-    return render(request, 'empresa_user.html', context)
+    return render(request, 'cadastro_user.html', context)
 
-def empresas (request):
-    empresas = Empresas.objects.all()
+def cadastro_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserForm()
     context = {
+        'form' : form
+    }
+    return render(request, 'cadastro_user.html', context )
+
+def servicos_empresa(request):
+    empresa = request.user.empresa
+    servicos = Servico.objects.filter(empresa=empresa)
+    context = {
+        'servicos':servicos
+    }
+    return render(request, 'servico_list.html', context)
+
+def Editar_servico(request, id):
+    empresa = request.user.empresa
+    servico = get_object_or_404(Servico, pk=id, empresa=empresa)  
+    form = ServicoForm(request.POST or None, instance=servico)
+    if form.is_valid():
+        form.save()
+        return redirect('servicos_empresa')
+    context = {'form': form}
+    return render(request, 'servico_cadastro.html',context )
+
+def deletar_servico(request, id):
+    empresa = request.user.empresa
+    servico = get_object_or_404(Servico, pk=id, empresa=empresa) 
+    servico.delete()
+    return redirect('servicos_empresa')
+
+def listar_servicos(request, empresa_id):
+    empresa = get_object_or_404(Empresas, id=empresa_id)
+    servicos = Servico.objects.filter(empresa=empresa)
+    context = {
+        'servicos':servicos
+    }
+    return render(request, 'servico.html', context)
+
+
+def cadastra_servico(request):
+    if request.user.tipo_usuario != 'admin':
+        return redirect('home')
+    if request.method == 'POST':
+        form = ServicoForm(request.POST)
+        if form.is_valid():
+            servico = form.save(commit=False)
+            servico.empresa = request.user.empresa
+            servico.save()
+            return redirect('servicos', empresa_id=request.user.empresa.id)
+    else:
+        form = ServicoForm()
+    context ={
+        'form':form
+    }
+    return render(request, 'servico_cadastro.html', context)
+
+
+def dashboard_user(request):
+    return render(request, 'dashboardUser.html')
+
+
+def assinar_servico(request, servico_id):
+    if not request.user.is_authenticated:
+        return redirect('cadastro_user')
+    servico = get_object_or_404(Servico, id=servico_id)
+    empresa = servico.empresa
+
+    assinante, created = Assinantes.objects.get_or_create(
+        email=request.user.email,
+        defaults={
+            'nome':request.user.username or 'Sem nome' ,
+            'telefone': '',
+            'empresa': empresa
+        }
+    )
+    if Assinatura.objects.filter(assinante=assinante, servico=servico).exists():
+        messages.warning(request, 'Você já assinou esse serviço.')
+        return redirect('dashboardUser')
+    assinatura = Assinatura.objects.create(
+        assinante=assinante,
+        servico=servico,
+        status='pendente',
+        valor=servico.valor
+    )
+    criar_mensalidade_para_assinatura(assinatura)
+    messages.success(request, 'Assinatura realizada com sucesso!')
+    return redirect('dashboardUser')
+
+def buscar_empresa(request):
+    form = PesquisaEmpresaForm(request.GET or None)
+    empresas = Empresas.objects.all()
+
+    if form.is_valid():
+        nome = form.cleaned_data.get('nome')
+        categoria = form.cleaned_data.get('categoria')
+        endereco = form.cleaned_data.get('endereco')
+
+        if nome:
+            empresas = empresas.filter(nome__icontains=nome)
+        if categoria:
+            empresas = empresas.filter(categoria__icontains=categoria)
+        if endereco:
+            empresas = empresas.filter(endereco__icontains=endereco)
+
+    contexto = {
+        'form': form,
         'empresas': empresas
     }
+    return render(request, 'empresas.html', contexto)
 
-    return render(request, 'empresas.html', context)
+
+def termos_de_uso(request):
+    return render(request, 'termos_de_uso.html')
+
+def politica_de_privacidade(request):
+    return render(request, 'politica_de_privacidade.html')

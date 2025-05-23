@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block estilo%}
+    <link rel="stylesheet" href="{% static 'css/document.css' %}">
+    {% endblock%}
+
+{% block content %}
+<main>
+    <h1>Política de Privacidade</h1>
+
+<p>Esta política explica como tratamos os dados pessoais dos usuários da plataforma SAMP.</p>
+
+<h2>1. Dados que coletamos</h2>
+<ul>
+    <li>De empresas: nome, email, categoria, endereço, Instagram, WhatsApp.</li>
+    <li>De usuários: nome, email, telefone, tipo de usuário, empresa vinculada.</li>
+</ul>
+
+<h2>2. Como usamos esses dados</h2>
+<ul>
+    <li>Para identificar e autenticar usuários.</li>
+    <li>Para permitir que empresas gerenciem seus assinantes e serviços.</li>
+    <li>Para comunicação entre a plataforma, empresas e assinantes.</li>
+</ul>
+
+<h2>3. Compartilhamento de dados</h2>
+<p>Não compartilhamos dados pessoais com terceiros, exceto quando exigido por lei ou necessário para a operação do sistema.</p>
+
+<h2>4. Direitos do usuário</h2>
+<p>Você pode solicitar atualização, correção ou exclusão dos seus dados pessoais entrando em contato conosco.</p>
+
+<h2>5. Segurança</h2>
+<p>Implementamos medidas técnicas e administrativas para proteger os dados pessoais contra acesso não autorizado.</p>
+
+<p>Última atualização: 20 de maio de 2025</p>
+</main>
+{% endblock %}

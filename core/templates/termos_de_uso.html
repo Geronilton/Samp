@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block estilo%}
+    <link rel="stylesheet" href="{% static 'css/document.css' %}">
+    {% endblock%}
+{% block content %}
+<main>
+    <h1>Termos de Uso</h1>
+<p>Bem-vindo à plataforma da SAMP!</p>
+
+<p>Ao utilizar este sistema, você concorda com os seguintes termos:</p>
+
+<ul>
+    <li>O sistema é destinado a empresas e seus assinantes.</li>
+    <li>O uso é permitido apenas para fins lícitos e de acordo com estes termos.</li>
+    <li>O cadastro de empresas exige informações reais e atualizadas (nome, email, categoria, endereço, redes sociais).</li>
+    <li>O administrador da empresa é responsável por gerenciar os dados dos seus assinantes.</li>
+    <li>Não é permitido utilizar o sistema para fins fraudulentos, ofensivos ou ilegais.</li>
+    <li>Reservamo-nos o direito de suspender contas que violem estes termos.</li>
+    <li>Podemos modificar estes termos a qualquer momento. Recomendamos revisá-los periodicamente.</li>
+</ul>
+
+<p>Última atualização: 20 de maio de 2025</p>
+</main>
+{% endblock %}

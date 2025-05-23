@@ -1,0 +1,32 @@
+{% extends "dashboard.html" %}
+
+{% load static %}
+{% block estilo %}
+    <link rel="stylesheet" href="{% static 'css/estilo_form.css' %}">
+{% endblock %}
+{% block title %}
+  Cadastro de serviço
+{% endblock %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% block content %}
+    <main>
+        <div class="cadastro_form">
+        <h1>Cadastrar serviço</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form}}
+        <p><input type="submit" value="Registrar"></p>
+        </form>
+    </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

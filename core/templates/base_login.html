@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{% static 'css/base_login.css' %}">
+    <title>{% block title %}Login{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <div class="img">
+                <img src="{% static 'img/Logo-samp.png' %}" alt="Sistema de Administração de Mensalidades e Pagamentos">
+            </div>
+            <div class="apresentacion">         
+            <h2 >
+                Conectamos Empresas e Assinantes em um só lugar!
+            </h2>
+            <div class="tipoUsuario">
+                <h3 ><i data-lucide="briefcase" class="icon"></i> Gestor</h3>
+
+                <div class="blocoTexto">
+                    <i data-lucide="layers" class="icon"></i>
+                    <span class="text">Cadastre e gerencie seus serviços com facilidade.</span>
+                </div>
+                <div class="blocoTexto">
+                    <i data-lucide="link" class="icon"></i>
+                    <span class="text">Conecte seus serviços a novos assinantes.</span>
+                </div>
+                <div class="blocoTexto">
+                    <i data-lucide="calendar" class="icon"></i>
+                    <span class="text">Controle assinaturas e mensalidades em um só painel.</span>
+                </div>
+            </div>
+
+            <!-- Bloco: Assinantes -->
+            <div class="tipoUsuario">
+                <h3><i data-lucide="user" class="icon"></i> Cliente</h3>
+
+                <div class="blocoTexto">
+                    <i data-lucide="search" class="icon"></i>
+                    <span class="text">Pesquise empresas e serviços por categoria.</span>
+                </div>
+                <div class="blocoTexto">
+                    <i data-lucide="credit-card" class="icon"></i>
+                    <span class="text">Encontre empresas e assine serviços.</span>
+                </div>
+            </div>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    </div>
+    
+</body>
+</html>

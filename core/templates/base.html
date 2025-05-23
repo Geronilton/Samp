@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/empresas.css' %}">
+    <link rel="stylesheet" href="{% static 'css/servico.css' %}">
+    {% block estilo%}
+    {% endblock%}
+    <title>{% block title %} Home{% endblock %}</title>
+</head>
+<body>
+   <div class="container">
+     <header>
+        <div class="cabecalho">
+            <a href="{% url 'home' %}"><img src="{% static 'img/Logo-samp.png' %}" alt="logo do site, samp" width="80%" height="100px"></a>
+            <p>Sistema de Administração de Mensalidades e Pagamentos</p>
+        </div>
+        {% block pesquisa %}
+            <form method="get">
+                {{ form.busca }}
+                <input class="Buscar" type="submit" value="Buscar"> 
+            </form>
+        {%endblock%}
+        {% if not user.is_authenticated %}
+        <div class="convite">
+          <a href="{% url 'login' %}">  
+            <div class="linkConvite">
+                <p>Login</p>
+            </div>
+          </a>
+          <a href="{% url 'empresa_cadastro' %}">
+            <div class="linkConvite">
+                <p>Cadastre sua empresa</p>
+            </div>
+          </a>
+        </div>
+        {% else %}
+        <div class="perfil">
+            <a href="{% url 'dashboard' %}">
+                <img src="{% static 'img/perfil.png' %}" alt="" width="45px" height="50px"> 
+            </a>
+            <br>
+                <span style="margin: auto; font-weight: bold; color: #333;text-align: center;">
+                    {{ user.first_name|default:user.username }}
+                </span>
+        </div>
+        {% endif %}
+    </header>
+    {% block content %}
+    {% endblock %}
+    <footer style="background-color: #1b1818; color: #fff; padding: 20px; text-align: center; font-size: 0.9em;">
+        <p>&copy; 2025 Geronilton de Oliveira Silva - Todos os direitos reservados.</p>
+        
+        <div style="margin: 10px 0;">
+            <a href="{% url 'termos_de_uso' %}" style="color: #ccc; margin: 0 10px; text-decoration: none;">Termos de Uso</a>
+            <a href="{% url 'politica_de_privacidade' %}" style="color: #ccc; margin: 0 10px; text-decoration: none;">Política de Privacidade</a>
+            <a href="/contato" style="color: #ccc; margin: 0 10px; text-decoration: none;">Contato</a>
+        </div>
+
+        <p>Versão 1.0.0</p>
+    </footer>
+   </div>
+</body>
+</html>

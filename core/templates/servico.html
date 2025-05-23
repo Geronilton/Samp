@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Serviço {% endblock %}
+{% block pesquisa %}{%endblock%}
+{% block content %}
+
+   <main>
+      {% if servicos %}
+    <div class="servico">
+        {% for servico in servicos %}
+        <div class="carServico">
+            <div class="servicoCabecalho">
+                <h1> {{servico.empresa.nome}} </h1>
+                <div class="socialEmpresa">
+                    <a href="{{servico.empresa.instagram}}">
+                        <img src="{% static 'img/instagram.png'%}" alt="logo instagram"></a>
+                    <a href="{{ servico.empresa.whatsapp}}">
+                        <img src="{% static 'img/whatsapp.png'%}" alt="logo whatsapp">
+                    </a>
+            </div>
+            </div>
+            <hr>
+            <div class="informacoesServico">
+                <h2>{{ servico.nome }}</h2>
+                <div class="descricaoServico">
+                    <p><strong>Descrição:</strong> </p>
+                    <p>{{ servico.descricao }} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus eos, officia distinctio eaque laboriosam optio cupiditate fugit veritatis pariatur, dolorum fuga! Reprehenderit non delectus adipisci perferendis, nulla placeat veniam omnis? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ex at ullam delectus quidem amet eveniet distinctio expedita, voluptas accusamus, deserunt unde temporibus inventore, nesciunt ea? Quidem obcaecati consequuntur iure! </p>
+                </div>
+            <div class="servico-card">
+                <p><strong>Categoria:</strong> {{ servico.empresa.categoria }}</p>
+                <p><strong>Email:</strong> {{ servico.empresa.email }}</p>
+                <p><strong>Localização:</strong> {{ servico.empresa.endereco }}</p>
+                <p><strong>Valor:</strong> R$ {{ servico.valor }}</p>
+                <p><strong>Assinantes:</strong> {{ servico.assinantes_set.count }}</p>
+                
+                <a href="{% url 'assinar_servico' servico.id %}" class="btn">Assinar</a>
+            </div>
+            </div> 
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="text-align: center;">Nenhum serviço cadastrado ainda.</p>
+    {% endif %}
+
+   </main>
+{% endblock %}
