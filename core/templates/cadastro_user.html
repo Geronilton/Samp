@@ -1,0 +1,23 @@
+{% extends "base_login.html" %}
+{% load static %}
+
+{% block title %}
+ Cadastro de Usuário
+{% endblock %}
+
+{% block content %}
+<div class="conteiner">
+    <div class="cadastro_form">
+        {% if form.instance.tipo_usuario == "admin" %}
+            <h2>Cadastrar Administrador para a Empresa: {{ empresa.nome }}</h2>
+        {% else %}
+            <h2>Cadastro de Usuário</h2>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><input type="submit" value="Cadastrar Usuário"></p>
+    </form>
+    </div>
+</div>
+{% endblock %}

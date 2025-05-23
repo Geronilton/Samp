@@ -1,9 +1,11 @@
-{% extends "base_form.html" %}
+{% extends "base_login.html" %}
+
+{% block title %}Cadastro de Empresa{% endblock %}
 
 {% block content %}
     <div class="conteiner">
         <div class="cadastro_form">
-            <h1>Empresa Cadastro</h1>
+            <h2>Empresa Cadastro</h2>
             <form method="post">
                 {% csrf_token %}
                 {{form}}

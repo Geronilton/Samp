@@ -1,10 +1,15 @@
-{% extends "base_form.html" %}
+{% extends "dashboard.html" %}
+{% load static %}
+{% block estilo %}
+    <link rel="stylesheet" href="{% static 'css/estilo_form.css' %}">
+{% endblock %}
 
 {% block title %}
     Cadastro de Assinantes
 {% endblock %}
 
 {% block content %}
+<main>
     <div class="form_assinantes">
         <div class="cadastro_form">
             <h1>Cadastro de Assinantes</h1>
@@ -15,4 +20,5 @@
             </form>
         </div>
     </div>
+</main>
 {%endblock%}

@@ -1,10 +1,24 @@
-{% extends "base_tabela.html" %}
+{% extends "dashboard.html" %}
+{% load static %}
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/estilo_tabela.css' %}"> 
+{% endblock %}
 
-
+{% block title %}
+    Assinantes
+{% endblock %}
 
 {% block content %}
-        <div class="tabela">
-            <h2>Lista de Assinantes</h2>
+<main>
+    
+    <div class="pesquisa">
+        <h2>Lista de Assinantes</h2>
+        <form method="get">
+            {{ form.busca }}
+            <input class="Buscar" type="submit" value="Buscar"> 
+        </form>
+    </div>
+     <div class="tabela">
             {% if assinantes %}
             <table>
                 <thead>
@@ -34,4 +48,5 @@
             <p class="empty">Nenhum Assinante Cadastrado</p>
             {% endif %}
         </div>
+</main>
 {% endblock %}

@@ -1,20 +1,12 @@
-.conteiner{
-    display: flex;
-    float: inline-end;
-}
-
-.form_assinantes{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .cadastro_form{
-    margin: 30px 100px 0 0;
+    margin: 0 0 0 10%;
     padding: 10px;
     max-width: 100%;
     width: 500px;
+    border-radius: 8px;
     background-color: #f9f9f9;
+    border: 1px black solid;
 }
 
 a {
@@ -59,7 +51,7 @@ form textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     border-radius: 4px;
     font-size: 14px;
     color: #555;

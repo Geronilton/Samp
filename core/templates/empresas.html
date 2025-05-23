@@ -1,19 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Empresa</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-    {% for empresa in empresas %}
-    <p> {{empresa.nome}} </p>
+{% block title %}
+    Home
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="empresas">
+        <h1>Empresas Disponíveis</h1>
+        <hr>
+        {% if empresas %}
+    <div class="grid">
+        {% for empresa in empresas %}
+        <div class="card">
+            <h2>{{ empresa.nome }}</h2>
+            <p><strong>Categoria:</strong> {{ empresa.categoria }}</p>
+            <p><strong>Endereço:</strong> {{ empresa.endereco }}</p>
+            <a href="{% url 'servicos' empresa.id %}" class="btn">Ver Mais</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="text-align: center;">Nenhuma empresa cadastrada ainda.</p>
+    {% endif %}
+    </div>
+</main>
+    {% endblock %}
+    
 
-    {% empty %}
-    <p>Nenhuma Area Cadastrada </p>
-    {% endfor %}
-
-</body>
-</html>

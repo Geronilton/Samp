@@ -3,19 +3,20 @@
 {% block estilo %}
     <link rel="stylesheet" href="{% static 'css/estilo_form.css' %}">
 {% endblock %}
+
 {% block title %}
-   Adicionar uma Mensalidade
+    Editar empresa
 {% endblock %}
 
 {% block content %}
 <main>
-    <div class="form_assinantes">
+    <div class="conteiner">
         <div class="cadastro_form">
-            <h1>Cadastrar Mensalidade ao um Usuário</h1>
+            <h1>Editar empresa</h1>
             <form method="post">
                 {% csrf_token %}
                 {{form}}
-            <p><input type="submit" value="Registrar"></p>
+                <p><input type="submit" value="Registrar"></p>
             </form>
         </div>
     </div>

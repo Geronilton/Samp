@@ -127,7 +127,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'core.EmpresaUser'
+AUTH_USER_MODEL = 'core.Usuario'
 
 LOGIN_URL = 'login'
 

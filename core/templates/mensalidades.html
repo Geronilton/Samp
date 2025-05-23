@@ -1,54 +1,66 @@
-{% extends "base_tabela.html" %}
-
+{% extends "dashboard.html" %}
+{% load static %}
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/estilo_tabela.css' %}"> 
+{% endblock %}
 {% block title %}
     Lista de Mensalidades
 {% endblock %}
 
 {% block content %}
-       
-        <div class="tabela">
-            <h2>Mensalidades</h2>
-            {% if mensalidades %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Assinante</th>
-                        <th>Valor</th>
-                        <th>Vencimento</th>
-                        <th>Status</th>
-                        <th>Data do Pagamento</th>
-                        <th>Mensalidade Criada Em</th>
-                        <th>Atualizar</th>
-                        <th>Deletar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for mensalidade in mensalidades %}
-                    <tr>
-                        <td>{{ mensalidade.assinantes.nome }}</td>
-                        <td>R$ {{ mensalidade.valor }}</td>
-                        <td>{{ mensalidade.vencimento }}</td>
-                        <td>{{ mensalidade.status }}</td>
-                        <td>{% if mensalidade.data_pagamento %}
-                            {{ mensalidade.data_pagamento }}
-                        {% else %}
-                            <span class="sem-pagamento">Aguardando pagamento</span>
-                        {% endif %}
-                        </td>
+<main>
+    <div class="pesquisa">
+        <h2>Mensalidades</h2>
+        <form method="get">
+            {{ form.busca }}
+            <input class="Buscar" type="submit" value="Buscar"> 
+        </form>
+    </div>
+    <div class="tabela">
+        <h2>Mensalidades</h2>
+        {% if mensalidades %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Assinante</th>
+                    <th>Valor</th>
+                    <th>Vencimento</th>
+                    <th>Status</th>
+                    <th>Data do Pagamento</th>
+                    <th>Mensalidade Criada Em</th>
+                    <th>Atualizar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mensalidade in mensalidades %}
+                <tr>
+                    <td>{{ mensalidade.assinatura.assinante.nome }}</td>
+                    <td>R${{ mensalidade.valor }} </td>
+                    <td>{{ mensalidade.vencimento }}</td>
+                    <td>{{ mensalidade.status }}</td>
+                    <td>{% if mensalidade.data_pagamento %}
+                        {{ mensalidade.data_pagamento }}
+                    {% else %}
+                        <span class="sem-pagamento">Aguardando pagamento</span>
+                    {% endif %}
+                    </td>
 
-                        <td>{{ mensalidade.data_criado }}</td>
-                        <td>
-                            <a href="{% url 'atualizar_mensalidade' mensalidade.id %}" class="editar">Atualizar</a>
-                        </td>
-                        <td>
-                            <a href="{% url 'deletar_mensalidade' mensalidade.id %}" class="deletar">Deletar</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <p class="empty">Nenhuma Mensalidade Cadastrada</p>
-            {% endif %}
-        </div>
+                    <td>{{ mensalidade.data_criado }}</td>
+                    <td>
+                        <a href="{% url 'atualizar_mensalidade' mensalidade.id %}" class="editar">Atualizar</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'deletar_mensalidade' mensalidade.id %}" class="deletar">Deletar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty">Nenhuma Mensalidade Cadastrada</p>
+        {% endif %}
+    </div>
+    
+</main>
 {% endblock %}

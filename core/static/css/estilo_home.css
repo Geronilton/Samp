@@ -5,13 +5,6 @@
     box-sizing: border-box;
 }
 
-.conteiner {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    
-}
-
 #img-logo{
 
     display: block; /* Garante que a imagem se comporte como bloco para centralizar no texto */

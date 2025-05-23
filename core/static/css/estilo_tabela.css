@@ -1,45 +1,4 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f5f5f5;
-}
 
-.conteudo_funcoes {
-    margin: 5%;
-    gap: 16px; 
-}
-
-.funcionalidades {
-    text-align: center;
-    margin: 0 0 10px 0;
-    width: 200px;  
-    padding: 20px;
-    border: 1px solid #ddd; 
-    border-radius: 10px;
-    background-color: #fff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;  
-}
-
-
-.funcionalidades:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-}
-
-
-.funcionalidades a {
-    text-decoration: none;
-    color: #007bff;  
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: color 0.3s ease;  
-}
-
-
-.funcionalidades a:hover {
-    color: #0056b3;  
-}
 
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
@@ -65,19 +24,15 @@ body {
     font-weight: bold;
 }
 
-.conteiner{
-    display: flex;
-    justify-content: space-between;
-    margin: 20px auto;
-    padding: 20px; 
-}
+
 
 .tabela{
-    width: 75%;
+    width: 92%;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    border: 1px black solid;
 }
 
 .tabela h2 {
@@ -134,7 +89,7 @@ a:hover {
 table td a {
     display: block;
     text-align: center;
-    padding: 8px;
+    padding: 5px;
     border-radius: 4px;
     color: #fff;
     font-size: 14px;
@@ -170,3 +125,53 @@ table td a.definir_mensalidade {
     font-size: 16px;
     margin-top: 20px;
 }
+
+.pesquisa{
+    display: flex;
+    justify-content: space-around   ;
+}
+
+/* formulario de busca */
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 30%;
+}
+
+form p {
+    margin: 0;
+    flex: 1;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border 0.3s ease;
+}
+
+form input[type="text"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.Buscar {
+    padding: 8px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.Buscar:hover {
+    background-color: #357ab8;
+}
+
