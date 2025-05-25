@@ -11,7 +11,9 @@
                 {{form}}
                 <p><input type="submit" value="Registrar"></p>
             </form>
-            <p><a href="{% url 'login' %}">Ja possui uma conta? Login</a></p>
+            <div class="cadastros">
+                <p><a href="{% url 'login' %}" class="botao-link">Ja possui uma conta? Login</a></p>
+            </div>
         </div>
     </div>
 {%endblock%}

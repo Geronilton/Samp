@@ -18,6 +18,12 @@
             {{ form.as_p }}
             <p><input type="submit" value="Cadastrar Usuário"></p>
     </form>
+        {% if form.instance.tipo_usuario == "assinante" %}
+            <div class="cadastros">
+                <p><a href="{% url 'login' %}" class="botao-link">Ja possui uma conta? Login</a></p>
+            </div>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}
