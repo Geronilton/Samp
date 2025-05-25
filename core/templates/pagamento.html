@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+    {% block estilo%}
+    <style>
+        img { margin-top: 20px; }
+        .copiacola { margin-top: 20px; font-size: 16px; word-break: break-all; }
+        .pagamento{text-align: center;}
+    </style>
+    {% endblock%}
+{% load static %}
+{% block title %} Pagamento via Pix {% endblock %}
+{% block pesquisa %}{%endblock%}
+{% block content %}
+    <main>
+    {% if assinatura %}
+    <div class="servico">
+    
+    <div class="informacoesServico">
+            <h2>{{ assinatura.servico.nome }}</h2>
+            <div class="descricaoServico">
+                <p><strong>Descrição:</strong> </p>
+                <p>{{ assinatura.servico.descricao }} Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus eos, officia distinctio eaque laboriosam optio cupiditate fugit veritatis pariatur, dolorum fuga! Reprehenderit non delectus adipisci perferendis, nulla placeat veniam omnis? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Earum ex at ullam delectus quidem amet eveniet distinctio expedita, voluptas accusamus, deserunt unde temporibus inventore, nesciunt ea? Quidem obcaecati consequuntur iure! </p>
+            </div>
+        <div class="servico-card">
+            <p><strong>Categoria:</strong> {{ assinatura.servico.empresa.categoria }}</p>
+            <p><strong>Email:</strong> {{ assinatura.servico.empresa.email }}</p>
+            <p><strong>Localização:</strong> {{ assinatura.servico.empresa.endereco }}</p>
+            <p><strong>Valor:</strong> R$ {{ assinatura.servico.valor }}</p>
+            <p><strong>Assinantes:</strong> {{ assinatura.servico.assinantes_set.count }}</p>
+        </div>
+    </div> 
+    {% if messages %}
+    <div class="mensagens">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="pagamento">
+    <h2>Pagamento via Pix</h2>
+    <p>Escaneie o QR Code abaixo com seu app bancário para pagar:</p>
+    <img src="{{ qrcode_base64 }}" alt="QR Code Pix" width="200">
+
+    <p class="copiacola">
+        <strong>Chave copia e cola:</strong><br>
+        {{ chave_copia_e_cola }}
+    </p>
+
+    <p><strong>Valor:</strong> R$ {{ assinatura.valor }}</p>
+    <p><strong>Após o pagamento, aguarde a confirmação do gestor. 
+        <br> Você pode conferir em perfil suas assinaturas</strong></p>
+        </div>
+            {% else %}
+    <p style="text-align: center;">Nenhum serviço cadastrado ainda.</p>
+    {% endif %}
+    </div>
+</main>
+
+{%endblock%}
