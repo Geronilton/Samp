@@ -7,8 +7,10 @@ class Empresas(models.Model):
     email = models.EmailField('Email', max_length=100, unique=True)
     categoria = models.CharField('Categoria', max_length=100)
     endereco = models.CharField('Endereço', max_length=200)
+    cidade = models.CharField('Cidade', max_length=200)
     instagram = models.URLField('Instagram', max_length=200, blank=True, null=True)
     whatsapp = models.URLField('WhatsApp', max_length=200, blank=True, null=True)
+    chave_pix = models.CharField('Chave Pix', max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.nome
@@ -74,7 +76,6 @@ class Assinatura(models.Model):
     data_assinatura = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pendente')
     valor = models.DecimalField('Valor da Assinatura', max_digits=7, decimal_places=2)
-    confirmada = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.assinante.nome} - {self.servico.nome} ({self.status})'

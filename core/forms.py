@@ -3,16 +3,16 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Empresas, Usuario, Assinantes, Mensalidades,Servico
 
 class UserForm(UserCreationForm):
-    email = forms.EmailField(max_length=100, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(max_length=100, help_text='Informe um email valido')
 
     class Meta:
         model = Usuario
-        fields = ['username','email','telefone','password1', 'password2']
+        fields = ['first_name','last_name','username','email','telefone','password1', 'password2']
 
 class EmpresasForm(forms.ModelForm):
     class Meta:
         model = Empresas
-        fields = ['nome', 'email','categoria', 'endereco','instagram','whatsapp']
+        fields = ['nome', 'email','categoria', 'endereco','cidade','chave_pix','instagram','whatsapp']
         widgets = {
             'nome': forms.TextInput(attrs={'placeholder':' Nome da empresa'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
@@ -46,10 +46,22 @@ class MensalidadesForm(forms.ModelForm):
         fields = ['valor', 'vencimento', 'status', 'data_pagamento']
         widgets = {
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'valor': forms.TextInput(attrs={'class': 'form-control'}),
-            'vencimento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'data_pagamento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'vencimento': forms.DateInput(
+                attrs={'class': 'form-control', 'type': 'date'},
+                format='%Y-%m-%d'
+            ),
+            'data_pagamento': forms.DateInput(
+                attrs={'class': 'form-control', 'type': 'date'},
+                format='%Y-%m-%d'
+            ),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Necessário para aplicar o format nos campos de data
+        for field_name in ['vencimento', 'data_pagamento']:
+            if self.fields.get(field_name):
+                self.fields[field_name].input_formats = ['%Y-%m-%d']
 
 class ServicoForm(forms.ModelForm):
     class Meta:
