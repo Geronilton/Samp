@@ -1,22 +1,60 @@
-
-
-/* Responsividade para telas menores */
 @media (max-width: 768px) {
     .content {
-        width: 90%;  /* Reduz a largura do conteúdo em telas menores */
+        width: 90%;  
     }
 
-    .conteudo_funcoes {
-        flex-direction: column;  /* Exibe as funcionalidades em uma coluna */
-        align-items: center;  /* Centraliza os itens */
+    .table-responsive {
+        border: 1px solid #ddd;
+        border-radius: 8px;
     }
 
-    .funcionalidades {
-        width: 80%;  /* Ocupa 80% da largura em telas pequenas */
-        margin-bottom: 15px;  /* Adiciona um espaçamento entre os itens */
+    table {
+        min-width: 600px;  
+    } 
+
+    thead, tbody {
+        display: table-header-group;
+        width: 100%;
+        overflow: visible;
+        max-height: unset;
+    }
+
+    tbody tr {
+        display: table-row;
+    }
+
+    /* Alinha a pesquisa em coluna */
+    .pesquisa {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 10px;
+    }
+
+    /* Formulário ocupa 100% e elementos em coluna */
+    form {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    /* Campo de texto ocupa 100% */
+    form input[type="text"] {
+        width: 100%;
+    }
+
+    /* Botão de busca ocupa 100% */
+    .Buscar {
+        width: 100%;
+        padding: 10px;
     }
 }
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
 
 /*-------------------------------*/
 .sem-pagamento {
@@ -24,16 +62,16 @@
     font-weight: bold;
 }
 
-
-
-.tabela{
-    width: 92%;
+.tabela {
+    width: 98%;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     border: 1px black solid;
+    overflow: hidden; 
 }
+
 
 .tabela h2 {
     margin-bottom: 20px;
@@ -46,13 +84,42 @@ h2 {
     color: #333;
 }
 
+
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+
+thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    background-color: rgba(0, 0, 0, 0.828);
+    color: #fff;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+tbody {
+    display: block;
+    max-height: 700px; 
+    overflow-y: auto;
+    width: 100%;
+}
+
+
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
 
 table th, table td {
     text-align: left;
@@ -89,35 +156,37 @@ a:hover {
 table td a {
     display: block;
     text-align: center;
-    padding: 5px;
+    padding: 8px;
     border-radius: 4px;
     color: #fff;
     font-size: 14px;
 }
 
-/* Estilo para a célula "Editar" */
+
 table td a.editar {
-    background-color: #ffa500; /* Laranja */
+    background-color: #ffa500;
 }
 
 table td a.editar:hover {
-    background-color: #ff8c00; /* Laranja mais escuro */
+    background-color: #ff8c00; 
 }
 
-/* Estilo para a célula "Deletar" */
+
 table td a.deletar {
-    background-color: #ff4c4c; /* Vermelho */
+    background-color: #ff4c4c;
 }
 
 table td a.deletar:hover {
-    background-color: #ff0000; /* Vermelho mais forte */
+    background-color: #ff0000; 
 }
 
 table td a.definir_mensalidade {
-    background-color: #007bff; /* Vermelho */
+    background-color: #007bff; 
 }
 
-
+table td a.confirma {
+    background-color: #007bff;
+}
 /* Mensagem de lista vazia */
 .empty {
     text-align: center;
@@ -175,3 +244,9 @@ form input[type="text"]:focus {
     background-color: #357ab8;
 }
 
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}

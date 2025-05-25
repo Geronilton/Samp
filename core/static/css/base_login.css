@@ -1,8 +1,13 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-image: url("/static/img/walpaper.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -146,8 +151,98 @@ form .error {
     margin-top: -10px;
     margin-bottom: 10px;
 }
+.erro-msg {
+    color: #d8000c;             /* Vermelho forte */
+    background-color: #ffd2d2;  /* Fundo suave */
+    padding: 10px 15px;
+    border: 1px solid #d8000c;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
 
 /* Estilo para CSRF token */
 form input[name="csrfmiddlewaretoken"] {
     display: none;
+}
+
+.cadastros {
+    margin-top: 30px;
+
+    p a{
+        color: white;
+        font-weight: bold; 
+        font-size: 1rem; 
+        text-decoration: none;
+    }
+    p a:hover{
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+
+    }
+}
+
+.botao-link {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.botao-link.secundario {
+    background-color: #6c757d;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin: 0 5%;
+    }
+
+    .cadastro_form {
+        width: 100%;
+        max-width: 90%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .banner {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .apresentacion {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .apresentacion .blocoTexto,
+    .apresentacion .tipoUsuario h3,
+    .apresentacion .text {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .botao-link {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    form {
+        padding: 10px;
+        box-shadow: none;
+    }
 }

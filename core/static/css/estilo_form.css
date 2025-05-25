@@ -96,3 +96,26 @@ form .error {
 form input[name="csrfmiddlewaretoken"] {
     display: none;
 }
+
+@media (max-width: 768px) {
+    .cadastro_form {
+        width: 90%;
+        margin: 0 auto;
+        padding: 15px;
+    }
+
+    form {
+        padding: 15px;
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    form input[type="submit"] {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
