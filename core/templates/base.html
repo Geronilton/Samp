@@ -14,42 +14,50 @@
 </head>
 <body>
    <div class="container">
-     <header>
+    <header>
         <div class="cabecalho">
-            <a href="{% url 'home' %}"><img src="{% static 'img/Logo-samp.png' %}" alt="logo do site, samp" width="80%" height="100px"></a>
+            <a href="{% url 'home' %}">
+                <img src="{% static 'img/Logo-samp.png' %}" alt="logo do site, samp" width="80%" height="100px">
+            </a>
             <p>Sistema de Administração de Mensalidades e Pagamentos</p>
         </div>
+
         {% block pesquisa %}
             <form method="get">
                 {{ form.busca }}
                 <input class="Buscar" type="submit" value="Buscar"> 
             </form>
-        {%endblock%}
-        {% if not user.is_authenticated %}
-        <div class="convite">
-          <a href="{% url 'login' %}">  
-            <div class="linkConvite">
-                <p>Login</p>
-            </div>
-          </a>
-          <a href="{% url 'empresa_cadastro' %}">
-            <div class="linkConvite">
-                <p>Cadastre sua empresa</p>
-            </div>
-          </a>
+        {% endblock %}
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <div class="menu-mobile" id="menuMobile">
+            {% if not user.is_authenticated %}
+                <div class="convite">
+                <a href="{% url 'login' %}">  
+                    <div class="linkConvite">
+                        <p>Login</p>
+                    </div>
+                </a>
+                <a href="{% url 'empresa_cadastro' %}">
+                    <div class="linkConvite">
+                        <p>Cadastre sua empresa</p>
+                    </div>
+                </a>
+                </div>
+            {% else %}
+                <div class="perfil">
+                    <a href="{% url 'dashboard' %}">
+                        <img src="{% static 'img/perfil.png' %}" alt="Perfil" width="45px" height="50px"> 
+                    </a>
+                    <span style="margin: auto; font-weight: bold; color: #333;text-align: center;">
+                        {{ user.first_name|default:user.username }}
+                    </span>
+                </div>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="perfil">
-            <a href="{% url 'dashboard' %}">
-                <img src="{% static 'img/perfil.png' %}" alt="" width="45px" height="50px"> 
-            </a>
-            <br>
-                <span style="margin: auto; font-weight: bold; color: #333;text-align: center;">
-                    {{ user.first_name|default:user.username }}
-                </span>
-        </div>
-        {% endif %}
     </header>
+
     {% block content %}
     {% endblock %}
     <footer style="background-color: #1b1818; color: #fff; padding: 20px; text-align: center; font-size: 0.9em;">
@@ -64,5 +72,11 @@
         <p>Versão 1.0.0</p>
     </footer>
    </div>
+    <script>
+    function toggleMenu() {
+        const menu = document.getElementById("menuMobile");
+        menu.classList.toggle("open");
+    }
+    </script>
 </body>
 </html>

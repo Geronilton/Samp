@@ -17,73 +17,73 @@
             <a href="{% url 'home' %}"><img src="{% static 'img/Logo-samp.jpg' %}" alt="logo do site, samp" width="100%" height="108px"></a>
         </div>
     </header>
-     <nav>
-         <div class="conteudo_funcoes"> 
+    <nav>
+        <!-- Botão sanduíche -->
+        <div class="hamburger-nav" onclick="toggleNav()">☰</div>
+
+        <div class="conteudo_funcoes" id="menuNav">
             {% if request.user.is_authenticated and request.user.empresa %}
-            <div class="link">
-            <a href="{% url 'cadastro_assinantes' %}">
-                <div class="funcionalidades">
-                <p>Cadastrar um Assinante</p>
-            </div>
-            </a>
-            </div>
-            <hr>
-            <div class="link">  
-            <a href="{% url 'assinantes' %}">
-            <div class="funcionalidades">
-                <p>Assinantes</p>
-            </div>
-            </a>
-            </div>
-            <hr>
-            <div class="link">
-            <a href="{% url 'mensalidades' %}">
-            <div class="funcionalidades">
-                <p>Mensalidades</p>
-            </div>
-            </a>
-            </div>
-            <hr>
-            <div class="link">
-            <a href="{% url 'cadastra_servico' %}">
-            <div class="funcionalidades">
-                <p>Cadastra serviço</p>
-            </div>
-            </a>
-            </div>
-            <hr>
-            <div class="link">
-            <a href="{% url 'servicos_empresa' %}">
-            <div class="funcionalidades">
-                <p>Meus serviços</p>
-            </div>
-            </a>
-            </div>
-            
-             {% elif request.user.is_authenticated %}
-            <div class="link">
-                <a href="">
-                    <div class="funcionalidades">
-                        <p>Minhas Assinaturas</p>
-                    </div>
-                </a>
-            </div>
+                <div class="link">
+                    <a href="{% url 'assinatura_adm' %}">
+                        <div class="funcionalidades"><p>Assinaturas</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">
+                    <a href="{% url 'cadastro_assinantes' %}">
+                        <div class="funcionalidades"><p>Cadastrar um Assinante</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">  
+                    <a href="{% url 'assinantes' %}">
+                        <div class="funcionalidades"><p>Assinantes</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">
+                    <a href="{% url 'mensalidades' %}">
+                        <div class="funcionalidades"><p>Mensalidades</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">
+                    <a href="{% url 'cadastra_servico' %}">
+                        <div class="funcionalidades"><p>Cadastra serviço</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">
+                    <a href="{% url 'servicos_empresa' %}">
+                        <div class="funcionalidades"><p>Meus serviços</p></div>
+                    </a>
+                </div>
+            {% elif request.user.is_authenticated %}
+                <div class="link">
+                    <a href="{% url 'assinaturas_assinante' %}">
+                        <div class="funcionalidades"><p>Minhas Assinaturas</p></div>
+                    </a>
+                </div>
+                <hr>
+                <div class="link">
+                    <a href="{% url 'mensalidades_assinantes' %}">
+                        <div class="funcionalidades"><p>Minhas mensalidades</p></div>
+                    </a>
+                </div>
             {% endif %}
             <div class="funcionalidades">
-            <a href="{% url 'logout_view' %}">
-            <div class="logout"> 
-                <p>
-                    <img src="{% static 'img/simbolo-de-logout.png' %}" alt="simbolo-de-logout">
-                        <p>Sair</p>
-                </p>
-            </div>
-            </a> 
+                <a href="{% url 'logout_view' %}">
+                    <div class="logout"> 
+                        <p><img src="{% static 'img/simbolo-de-logout.png' %}" alt="logout icon"> Sair</p>
+                    </div>
+                </a> 
             </div>
         </div>
     </nav>
+
     {% block content %}
-    {% if request.user.is_authenticated and request.user.empresa %}
     <main>
+    {% if request.user.is_authenticated and request.user.empresa %}
         <div class="infoEmpresa">
             <div class="cabecalhoDash">
                 <h2> Nome da empresa: {{empresa.nome}}</h2>
@@ -93,13 +93,25 @@
                 <p><strong>Email:</strong>{{empresa.email}} </p>
                 <p><Strong>Categoria: </Strong>{{empresa.categoria}} </p>
                 <p><Strong>Endereço: </Strong>{{empresa.endereco}} </p>
+                <p><Strong>Chave pix: </Strong>{{empresa.chave_pix}} </p>
+                <span>Chave pix telefone,ex: +5584999884455. Para CPF e CNPJ, colocar sem ponto.</span>
                 <p><strong>Instagram: </strong>{{empresa.instagram}} </p>
                 <p><strong>Whatsapp: </strong>{{empresa.whatsapp}} </p>
             </div>
         </div>
-    </main>
-      {% endif%}
-    
+        {% else %}
+            <div class="cabecalhoDash">
+                <h2>  {{ user.first_name|default:user.username }} {{user.last_name}}</h2>
+                <a href="{% url 'atualizar_usuario' %}" class="editar">Editar Informações</a>
+            </div>
+            <div class="contentdash">
+                <p><strong>Email:</strong>{{user.email}} </p>
+                <p><Strong>Telefone: </Strong>{{user.telefone}} </p>
+
+            </div>
+        {% endif%}
+
+    </main>    
     {% endblock %}
     <footer style="background-color: #1b1818; color: #fff; padding: 20px; text-align: center; font-size: 0.9em;">
         <p>&copy; 2025 Geronilton de Oliveira Silva - Todos os direitos reservados.</p>
@@ -113,7 +125,12 @@
         <p>Versão 1.0.0</p>
     </footer>
    </div>
-</body>
-</html>
+   <script>
+    function toggleNav() {
+        const nav = document.getElementById("menuNav");
+        nav.classList.toggle("open");
+    }
+    </script>
+
 </body>
 </html>
