@@ -1,0 +1,69 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/estilo_tabela.css' %}"> 
+{% endblock %}
+
+{% block title %}
+    Assinaturas
+{% endblock %}
+
+{% block content %}
+<main>
+    
+    <div class="pesquisa">
+        <h2>Assinaturas</h2>
+        <form method="get">
+            {{ form.busca }}
+            <input class="Buscar" type="submit" value="Buscar"> 
+        </form>
+    </div>
+    {% if messages %}
+        <div class="mensagens">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+     <div class="tabela">
+    {% if assinaturas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Serviço</th>
+                <th>Data da assinatura</th>
+                <th>Status</th>
+                <th>Valor</th>
+                {% if request.user.is_authenticated and request.user.empresa %}
+                <th style="text-align: center;" colspan="2">Ações</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+    {% for assinatura in assinaturas %}
+       <tr>
+            <td> {{assinatura.assinante.nome}}</td>
+            <td> {{assinatura.servico.nome}}</td>
+            <td> {{assinatura.data_assinatura}}</td>
+            <td > {{assinatura.status}}</td>
+            <td> {{assinatura.valor}}</td>
+        {% if request.user.is_authenticated and request.user.empresa %}
+            {% if assinatura.status != "Ativa" %}
+                <td><a href="{% url 'confirma_assinatura' assinatura.id %}" class="confirma">Confirmar assinatura</a></td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            <td><a href="{% url 'gerar_mensalidade' assinatura.id %}" class="confirma">Gerar mensalidade</a></td>
+        {% endif %}
+       </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Nenhum Assinante Cadastrado</p>
+    {% endif %}
+</main>
+{% endblock %}

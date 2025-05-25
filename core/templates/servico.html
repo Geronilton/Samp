@@ -17,10 +17,19 @@
                     <a href="{{ servico.empresa.whatsapp}}">
                         <img src="{% static 'img/whatsapp.png'%}" alt="logo whatsapp">
                     </a>
-            </div>
+                </div>
             </div>
             <hr>
             <div class="informacoesServico">
+                {% if messages %}
+                    <div class="mensagens">
+                        {% for message in messages %}
+                            <div class="alert {{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <h2>{{ servico.nome }}</h2>
                 <div class="descricaoServico">
                     <p><strong>Descrição:</strong> </p>

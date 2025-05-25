@@ -16,29 +16,47 @@
             <input class="Buscar" type="submit" value="Buscar"> 
         </form>
     </div>
+    {% if messages %}
+        <div class="mensagens">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <div class="tabela">
-        <h2>Mensalidades</h2>
         {% if mensalidades %}
         <table>
             <thead>
                 <tr>
+                    {% if request.user.is_authenticated and request.user.empresa %}
                     <th>Assinante</th>
+                    {% else %}
+                    <th>Serviço</th>
+                    {% endif %}
                     <th>Valor</th>
                     <th>Vencimento</th>
                     <th>Status</th>
-                    <th>Data do Pagamento</th>
-                    <th>Mensalidade Criada Em</th>
-                    <th>Atualizar</th>
-                    <th>Deletar</th>
+                    <th>Data de pagamento</th>
+                    <th>Mensalidade criada em</th>
+                    {% if request.user.is_authenticated and request.user.empresa %}
+                    <th style="text-align: center;" colspan="3">Ações</th>
+                    {% endif%}
+                 
                 </tr>
             </thead>
             <tbody>
                 {% for mensalidade in mensalidades %}
                 <tr>
+                    {% if request.user.is_authenticated and request.user.empresa %}
                     <td>{{ mensalidade.assinatura.assinante.nome }}</td>
-                    <td>R${{ mensalidade.valor }} </td>
+                    {% else %}
+                    <td>{{ mensalidade.assinatura.servico.nome }}</td>
+                    {% endif %}
+                    <td>R$ {{ mensalidade.valor }} </td>
                     <td>{{ mensalidade.vencimento }}</td>
-                    <td>{{ mensalidade.status }}</td>
+                    <td >{{ mensalidade.status }}</td>
                     <td>{% if mensalidade.data_pagamento %}
                         {{ mensalidade.data_pagamento }}
                     {% else %}
@@ -47,12 +65,21 @@
                     </td>
 
                     <td>{{ mensalidade.data_criado }}</td>
+                    {% if request.user.is_authenticated and request.user.empresa %}
+                    {% if mensalidade.status != "pago" %}
+                    <td>
+                        <a href="{% url 'definir_mensalidade_pago' mensalidade.id %}" class="confirma">Definir pago</a>
+                    </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td>
                         <a href="{% url 'atualizar_mensalidade' mensalidade.id %}" class="editar">Atualizar</a>
                     </td>
                     <td>
                         <a href="{% url 'deletar_mensalidade' mensalidade.id %}" class="deletar">Deletar</a>
                     </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

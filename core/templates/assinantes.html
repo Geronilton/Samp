@@ -18,6 +18,16 @@
             <input class="Buscar" type="submit" value="Buscar"> 
         </form>
     </div>
+    {% if messages %}
+        <div class="mensagens">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="table-responsive">
      <div class="tabela">
             {% if assinantes %}
             <table>
@@ -48,5 +58,6 @@
             <p class="empty">Nenhum Assinante Cadastrado</p>
             {% endif %}
         </div>
+    </div>
 </main>
 {% endblock %}
