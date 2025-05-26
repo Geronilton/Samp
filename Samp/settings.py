@@ -23,9 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9(z4(#n!id@+uzvd^ah^z$teab1p_d74ooco+d0!po2vyy=bu@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 #deploy
 import os
@@ -43,7 +40,7 @@ if not DEBUG:
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = ['samp-ieum.onrender.com']
 
 
 # Application definition
