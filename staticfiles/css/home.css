@@ -1,0 +1,213 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+}
+.cabecalho{
+    p{
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+    }
+}
+
+.container {
+    display: grid;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    grid-template-rows: auto 1fr auto;
+    height: 100vh; 
+}
+main{
+    grid-area: main;
+    margin: 15px;
+}
+
+footer{
+    grid-area: footer;
+
+}
+
+.perfil{
+    margin: 2% 5% 0 2% ; 
+}
+
+.convite{
+    display: flex;
+    margin: 2% 5% 0 2% ; 
+    gap: 1rem; 
+
+    a{
+    text-decoration: none; 
+    font-size: 1rem;
+    font-weight: bold;
+    color: black; 
+    }
+
+    .linkConvite {
+        border: 1px solid black;
+        border-radius: 8px;
+        padding: 0 8px;
+        transition: color 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+    }
+}
+
+.linkConvite:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* formulario de busca */
+form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 30%;
+}
+
+form p {
+    margin: 0;
+    flex: 1;
+}
+
+form input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border 0.3s ease;
+}
+
+form input[type="text"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+.Buscar {
+    padding: 8px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.Buscar:hover {
+    background-color: #357ab8;
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-areas:
+            "header"
+            "main"
+            "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        height: auto;
+    }
+
+    header {
+
+        align-items: center;
+        padding: 10px;
+    }
+
+    .perfil,
+    .convite {
+        margin: 5% 3%;
+
+    }
+
+    .convite {
+        gap: 0.5rem;
+    }
+
+    .convite a {
+        font-size: 0.95rem;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 8px;
+    }
+
+    form p {
+        width: 100%;
+    }
+
+    .Buscar {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+    padding: 10px;
+}
+
+.menu-mobile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    form {
+        width: 100% !important;
+        margin-top: 10px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .menu-mobile {
+        display: none;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        position: absolute;
+        top: 80px;
+        right: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        z-index: 1000;
+    }
+
+    .menu-mobile.open {
+        display: flex;
+    }
+
+    .convite, .perfil {
+        margin: 10px 0;
+    }
+}

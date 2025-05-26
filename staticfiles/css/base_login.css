@@ -1,0 +1,248 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/img/walpaper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%; 
+}
+
+.cadastro_form{
+    padding: 10px;
+    max-width: 100%;
+    width:380px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin: 5% 0 0 0;
+    border: 1px black solid;
+}
+
+
+.img img{
+    width: 50%;
+    height: 80%;  
+}
+
+.banner{
+    margin: 5%;
+    max-width: 85%;
+    height: auto;
+}
+
+.apresentacion{
+    text-align: center; 
+    max-width: 900px;
+    color: #333;
+
+    .blocoTexto{
+        margin: 0 0 10px 8px;
+        text-align: start;
+        padding: 5px;
+    }
+    .tipoUsuario h3{
+        text-align: start;
+    }
+    .icon{
+        width: 20px; 
+        height: 20px; 
+        vertical-align: middle;
+    }
+    .text{
+        padding-top: 3px;
+        font-size: 1rem;
+        padding-left: 10px;
+    }
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0 5% 0 0;
+
+}
+a {
+    color: #007bff; 
+    text-decoration: none; 
+    font-weight: bold; 
+    font-size: 1rem; 
+}
+
+a:hover {
+    color: #0056b3; 
+    text-decoration: underline;
+    transition: color 0.3s ease; 
+}
+
+a:active {
+    color: #003f7f; 
+}
+
+/* Estilo geral para o formulário */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título do formulário */
+h1, h2{
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Campos de formulário */
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #555;
+    background-color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Botão de envio */
+form input[type="submit"] {
+    width: 100%;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Mensagens de erro ou feedback */
+form .error {
+    color: #d9534f;
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+.erro-msg {
+    color: #d8000c;             /* Vermelho forte */
+    background-color: #ffd2d2;  /* Fundo suave */
+    padding: 10px 15px;
+    border: 1px solid #d8000c;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilo para CSRF token */
+form input[name="csrfmiddlewaretoken"] {
+    display: none;
+}
+
+.cadastros {
+    margin-top: 30px;
+
+    p a{
+        color: white;
+        font-weight: bold; 
+        font-size: 1rem; 
+        text-decoration: none;
+    }
+    p a:hover{
+        color: white;
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+
+    }
+}
+
+.botao-link {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.botao-link.secundario {
+    background-color: #6c757d;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin: 0 5%;
+    }
+
+    .cadastro_form {
+        width: 100%;
+        max-width: 90%;
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .banner {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .apresentacion {
+        max-width: 100%;
+        padding: 0 10px;
+    }
+
+    .apresentacion .blocoTexto,
+    .apresentacion .tipoUsuario h3,
+    .apresentacion .text {
+        text-align: center;
+        padding-left: 0;
+    }
+
+    .botao-link {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    form {
+        padding: 10px;
+        box-shadow: none;
+    }
+}
