@@ -1,1 +1,1 @@
-web: gunicorn samp.wsgi
+gunicorn samp.wsgi:application
