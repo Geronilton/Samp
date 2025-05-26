@@ -29,18 +29,19 @@ import os
 # banco de dados produção
 import dj_database_url
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-if not DEBUG:
-    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
+
+# Static files
+STATIC_URL = 'static/'
+
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / "static"]
+else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-    # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-ALLOWED_HOSTS = ['samp-ieum.onrender.com']
+    STATICFILES_DIRS = []
 
 
 # Application definition
